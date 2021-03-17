@@ -13,8 +13,6 @@ if (!firebase.apps.length) {
 
 function App() {
   const [user, setUser] = useState({});
-  const [fbUser, setFbUser] = useState({});
-  const [ghUser, setGhUser] = useState({});
 
   var googleProvider = new firebase.auth.GoogleAuthProvider();
   var fbProvider = new firebase.auth.FacebookAuthProvider();
@@ -52,7 +50,7 @@ function App() {
       var user = result.user;
       var accessToken = credential.accessToken;
       console.log('facebook user ',user);
-      setFbUser(user);
+      setUser(user);
     })
     .catch((error) => {
       var errorCode = error.code;
@@ -75,7 +73,7 @@ function App() {
       var user = result.user;
       var accessToken = credential.accessToken;
       console.log('github user ',user);
-      setGhUser(user);
+      setUser(user);
     })
     .catch((error) => {
       var errorCode = error.code;
@@ -88,18 +86,17 @@ function App() {
 
   return (
     <div className='App'>
+
+      <h4 className='mt-3'>Welcome, it is a firebase authentication application</h4>
       
       <button onClick={googleSignInHandler} className='btn btn-primary mt-5 mb-3'>google</button>
-      {/* <h3>Email : {user.email}</h3>
-      <img src={user.photoURL} alt=""/> */}
-
-      <button onClick={fbSignInHandler} className='btn btn-primary mt-5 mb-3'>Facebook</button>
-      {/* <h3>Display Name : {fbUser.displayName}</h3>
-      <img src={fbUser.photoURL} alt=""/> */}
-
+      
+      <button onClick={fbSignInHandler} className='btn btn-primary mt-5 mb-3 ml-3 mr-3'>Facebook</button>
+     
       <button onClick={gitSignInHandler} className='btn btn-primary mt-5 mb-3'>Github</button>
-      <h3>Display Name : {ghUser.displayName}</h3>
-      <img src={ghUser.photoURL} alt=""/>
+
+      <h3>Display Name : {user.displayName}</h3>
+      <img src={user.photoURL} alt=""/>
   
     </div>
   );
